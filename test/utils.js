@@ -24,14 +24,9 @@ describe('utils', function () {
 	describe('angularContent', function () {
 		it('should create an object with the modules name and the files needed', 
 			function () {
-				var m = utilsLib.angularContent(utilsLib.listFiles('test/sample', []));
-				assert.deepEqual(m, {
-					'main': [ 'test/sample/content/content.js'],
-  				'dependency3': 
-  				[ 'test/sample/content/dependency3content/dependency3content.js'],
-  				'dependency2': 
-  				[ 'test/sample/dependencies/dependency2/content/' +
-  				'dependency2content.js']});
+				var util = require('util');
+				var m = utilsLib.angularModules(utilsLib.listFiles('test/sample', []));
+				console.log(util.inspect(m.resolve('main', true), {depth: null}));
 			});
 	});
 });
