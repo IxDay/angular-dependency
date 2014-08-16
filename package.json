@@ -1,0 +1,28 @@
+{
+  "name": "angular-dependency",
+  "version": "0.0.0",
+  "description": "retrieve angular modules through your filesystem",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IxDay/angular-dependency"
+  },
+  "keywords": [
+    "angular",
+    "modules",
+    "dependency",
+    "tree"
+  ],
+  "author": "Maxime Vidori <maxime.vidori@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/IxDay/angular-dependency/issues"
+  },
+  "homepage": "https://github.com/IxDay/angular-dependency",
+  "devDependencies": {
+    "mocha": "^1.21.4"
+  }
+}
