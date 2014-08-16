@@ -1,0 +1,1 @@
+angular.module('dependency5', ['dependency4']);
