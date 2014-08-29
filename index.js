@@ -149,8 +149,8 @@ function angularModules (files) {
     var content = fs.readFileSync(file).toString().replace(/\s/g, '');
 
     var module_declaration =
-      /angular\.module\('(.*?)',\[([^\]]*)\][^\)]*/gi;
-    var module_content = /angular\.module\('([^']*)'[^\[]*?\)/gi;
+      /angular\.module\((?:'|")(.*?)(?:'|"),\[([^\]]*)\][^\)]*/gi;
+    var module_content = /angular\.module\((?:'|")([^']*)(?:'|")[^\[]*?\)/gi;
     var results;
 
     while ((results = module_declaration.exec(content)) !== null) {
