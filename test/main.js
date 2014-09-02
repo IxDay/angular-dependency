@@ -16,19 +16,19 @@ describe('angular-dependency', function () {
         var modules = {
           module1: {
             name: 'module1',
-            defined: 'test/test_cases/test_case_2/file_0_1.js',
+            defined: 'test/test_cases/test_case_01/file_0_1.js',
             dependencies: [],
             contents: []
           },
           module2: {
             name: 'module2',
-            defined: 'test/test_cases/test_case_2/folder_1/file_1_1.js',
+            defined: 'test/test_cases/test_case_01/folder_1/file_1_1.js',
             dependencies: [],
             contents: []
           }
         };
         assert.deepEqual(
-          modules, getModules('test/test_cases/test_case_2').modules);
+          modules, getModules('test/test_cases/test_case_01').modules);
       });
 
     it('should retrieve the module content and test, and provide them to ' +
@@ -36,18 +36,17 @@ describe('angular-dependency', function () {
         modules = {
           module1: {
             name: 'module1',
-            defined: 'test/test_cases/test_case_3/file_0_2.js',
+            defined: 'test/test_cases/test_case_02/file_0_2.js',
             dependencies: [],
             contents: [
-              'test/test_cases/test_case_3/file_0_1.js',
-              'test/test_cases/test_case_3/file_0_3.js',
-              'test/test_cases/test_case_3/file_0_4.js',
-              'test/test_cases/test_case_3/file_0_5.js',
-              'test/test_cases/test_case_3/file_0_6.js']}};
+              'test/test_cases/test_case_02/file_0_1.js',
+              'test/test_cases/test_case_02/file_0_3.js',
+              'test/test_cases/test_case_02/file_0_4.js',
+              'test/test_cases/test_case_02/file_0_5.js',
+              'test/test_cases/test_case_02/file_0_6.js']}};
 
-      debugger;
         assert.deepEqual(
-          modules, getModules('test/test_cases/test_case_3').modules);
+          modules, getModules('test/test_cases/test_case_02').modules);
       });
 
     it('should retrieve the module dependencies and provide them to the ' +
@@ -55,59 +54,59 @@ describe('angular-dependency', function () {
       modules = {
         module2: {
           name: 'module2',
-          defined: 'test/test_cases/test_case_4/file_0_1.js',
+          defined: 'test/test_cases/test_case_03/file_0_1.js',
           dependencies: [],
-          contents: ['test/test_cases/test_case_4/file_0_4.js'] },
+          contents: ['test/test_cases/test_case_03/file_0_4.js'] },
         module1: {
           name: 'module1',
-          defined: 'test/test_cases/test_case_4/file_0_2.js',
+          defined: 'test/test_cases/test_case_03/file_0_2.js',
           dependencies: [ 'module2' ],
-          contents: [ 'test/test_cases/test_case_4/file_0_3.js' ]}};
+          contents: [ 'test/test_cases/test_case_03/file_0_3.js' ]}};
 
       assert.deepEqual(
-        modules, getModules('test/test_cases/test_case_4').modules);
+        modules, getModules('test/test_cases/test_case_03').modules);
     });
 
     it('should handle different kind of syntax', function () {
       modules = {
         module1: {
           name: 'module1',
-          defined: 'test/test_cases/test_case_5/file_0_1.js',
+          defined: 'test/test_cases/test_case_04/file_0_1.js',
           dependencies: [],
-          contents: [ 'test/test_cases/test_case_5/file_0_2.js' ] },
+          contents: [ 'test/test_cases/test_case_04/file_0_2.js' ] },
         module2: {
           name: 'module2',
-          defined: 'test/test_cases/test_case_5/file_0_1.js',
+          defined: 'test/test_cases/test_case_04/file_0_1.js',
           dependencies: [ 'module3', 'module1' ],
-          contents: [ 'test/test_cases/test_case_5/file_0_2.js' ] },
+          contents: [ 'test/test_cases/test_case_04/file_0_2.js' ] },
         module3: {
           name: 'module3',
-          defined: 'test/test_cases/test_case_5/file_0_1.js',
+          defined: 'test/test_cases/test_case_04/file_0_1.js',
           dependencies: [],
-          contents: [ 'test/test_cases/test_case_5/file_0_2.js' ] } };
+          contents: [ 'test/test_cases/test_case_04/file_0_2.js' ] } };
 
       assert.deepEqual(
-        modules, getModules('test/test_cases/test_case_5').modules);
+        modules, getModules('test/test_cases/test_case_04').modules);
     });
 
     it('should be possible to get the dependency tree of a specific module',
       function () {
         modules = {
           name: 'module1',
-          defined: 'test/test_cases/test_case_6/file_0_1.js',
+          defined: 'test/test_cases/test_case_05/file_0_1.js',
           dependencies: [
             {
               name: 'module2',
-              defined: 'test/test_cases/test_case_6/file_0_1.js',
+              defined: 'test/test_cases/test_case_05/file_0_1.js',
               dependencies: [],
               contents: [] },
             {
               name: 'module3',
-              defined: 'test/test_cases/test_case_6/file_0_1.js',
+              defined: 'test/test_cases/test_case_05/file_0_1.js',
               dependencies: [
                 {
                   name: 'module4',
-                  defined: 'test/test_cases/test_case_6/file_0_1.js',
+                  defined: 'test/test_cases/test_case_05/file_0_1.js',
                   dependencies: [],
                   contents: []
                 }],
@@ -116,45 +115,45 @@ describe('angular-dependency', function () {
         };
         assert.deepEqual(
           modules,
-          getModules('test/test_cases/test_case_6').resolve('module1'));
+          getModules('test/test_cases/test_case_05').resolve('module1'));
       });
 
     it('should be possible to flatten this tree as a AngularModules object',
       function () {
         modules = [{
           name: 'module2',
-          defined: 'test/test_cases/test_case_6/file_0_1.js',
+          defined: 'test/test_cases/test_case_05/file_0_1.js',
           dependencies: [],
           contents: []
         }, {
           name: 'module4',
-          defined: 'test/test_cases/test_case_6/file_0_1.js',
+          defined: 'test/test_cases/test_case_05/file_0_1.js',
           dependencies: [],
           contents: []
         }, {
           name: 'module3',
-          defined: 'test/test_cases/test_case_6/file_0_1.js',
+          defined: 'test/test_cases/test_case_05/file_0_1.js',
           dependencies: [{
             name: 'module4',
-            defined: 'test/test_cases/test_case_6/file_0_1.js',
+            defined: 'test/test_cases/test_case_05/file_0_1.js',
             dependencies: [],
             contents: []
           }],
           contents: []
         }, {
           name: 'module1',
-          defined: 'test/test_cases/test_case_6/file_0_1.js',
+          defined: 'test/test_cases/test_case_05/file_0_1.js',
           dependencies: [{
             name: 'module2',
-            defined: 'test/test_cases/test_case_6/file_0_1.js',
+            defined: 'test/test_cases/test_case_05/file_0_1.js',
             dependencies: [],
             contents: []
           }, {
             name: 'module3',
-            defined: 'test/test_cases/test_case_6/file_0_1.js',
+            defined: 'test/test_cases/test_case_05/file_0_1.js',
             dependencies: [{
               name: 'module4',
-              defined: 'test/test_cases/test_case_6/file_0_1.js',
+              defined: 'test/test_cases/test_case_05/file_0_1.js',
               dependencies: [],
               contents: []
             }],
@@ -164,8 +163,7 @@ describe('angular-dependency', function () {
         }];
         assert.deepEqual(
           modules,
-          getModules('test/test_cases/test_case_6')
-            .resolve('module1', true));
+          getModules('test/test_cases/test_case_05').resolve('module1', true));
       });
   });
 
@@ -173,7 +171,7 @@ describe('angular-dependency', function () {
     it('should throw an error if a module has not been defined', function () {
       assert.throws(
         function() {
-          getModules('test/test_cases/test_case_7');
+          getModules('test/test_cases/test_case_06');
         },
         errors.NotDefined
       );
@@ -183,7 +181,7 @@ describe('angular-dependency', function () {
       function () {
         assert.throws(
           function() {
-            getModules('test/test_cases/test_case_8');
+            getModules('test/test_cases/test_case_07');
           },
           errors.AlreadyDefined
         );
@@ -193,7 +191,7 @@ describe('angular-dependency', function () {
       function () {
         assert.throws(
           function() {
-            getModules('test/test_cases/test_case_9').resolve('module1');
+            getModules('test/test_cases/test_case_08').resolve('module1');
           },
           errors.CircularDependency
         );
@@ -203,7 +201,14 @@ describe('angular-dependency', function () {
       function () {
         assert.throws(
           function() {
-            getModules('test/test_cases/test_case_9').resolve('module4');
+            getModules('test/test_cases/test_case_08').resolve('module4');
+          },
+          errors.NotDefined
+        );
+
+        assert.throws(
+          function() {
+            getModules('test/test_cases/test_case_09').resolve('module1');
           },
           errors.NotDefined
         );

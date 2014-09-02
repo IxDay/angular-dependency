@@ -114,7 +114,7 @@ AngularModules.prototype = {
 };
 
 function AngularModulesFactory () {
-  var _angularModules = null;
+  var _angularModules = new AngularModules();
   var module_declaration =
     /angular\.module\((?:'|")(.*?)(?:'|"),\[([^\]]*)\][^\)]*/gi;
 
@@ -135,7 +135,7 @@ function AngularModulesFactory () {
       try {
         return f.apply(this, arguments);
       } catch (e) {
-        _angularModules = null;
+        _angularModules = new AngularModules();
         throw e;
       }
     };
@@ -143,7 +143,6 @@ function AngularModulesFactory () {
 
   this.processFile = exceptionDecorator(function (content, path) {
     var results;
-    if (!_angularModules) { _angularModules = new AngularModules(); }
 
     content = content.replace(/\s/g, '');
 
@@ -163,7 +162,7 @@ function AngularModulesFactory () {
         throw new NotDefined(module);
       }
     });
-    _angularModules = null;
+    _angularModules = new AngularModules();
     return angularModules;
   });
 }
