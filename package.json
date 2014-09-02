@@ -1,6 +1,6 @@
 {
   "name": "angular-dependency",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "retrieve angular modules through your filesystem",
   "main": "index.js",
   "scripts": {
@@ -15,6 +15,10 @@
     "modules",
     "dependency",
     "tree"
+  ],
+  "files": [
+    "index.js",
+    "lib.js"
   ],
   "author": "Maxime Vidori <maxime.vidori@gmail.com>",
   "license": "MIT",
