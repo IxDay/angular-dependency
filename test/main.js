@@ -193,5 +193,15 @@ describe('angular-dependency', function () {
           errors.CircularDependency
         );
       });
+
+    it('should throw an error if a module resolution does not exist',
+      function () {
+        assert.throws(
+          function() {
+            getModules('test/test_cases/test_case_9').resolve('module4');
+          },
+          errors.NotDefined
+        );
+    });
   });
 });
