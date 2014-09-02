@@ -31,8 +31,8 @@ describe('angular-dependency', function () {
           modules, getModules('test/test_cases/test_case_2').modules);
       });
 
-    it('should retrieve the module content and provide them to the object',
-      function () {
+    it('should retrieve the module content and test, and provide them to ' +
+        'the object', function () {
         modules = {
           module1: {
             name: 'module1',
@@ -40,7 +40,12 @@ describe('angular-dependency', function () {
             dependencies: [],
             contents: [
               'test/test_cases/test_case_3/file_0_1.js',
-              'test/test_cases/test_case_3/file_0_3.js']}};
+              'test/test_cases/test_case_3/file_0_3.js',
+              'test/test_cases/test_case_3/file_0_4.js',
+              'test/test_cases/test_case_3/file_0_5.js',
+              'test/test_cases/test_case_3/file_0_6.js']}};
+
+      debugger;
         assert.deepEqual(
           modules, getModules('test/test_cases/test_case_3').modules);
       });

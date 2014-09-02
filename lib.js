@@ -117,7 +117,10 @@ function AngularModulesFactory () {
   var _angularModules = null;
   var module_declaration =
     /angular\.module\((?:'|")(.*?)(?:'|"),\[([^\]]*)\][^\)]*/gi;
-  var module_content = /angular\.module\((?:'|")([^']*)(?:'|")[^\[]*?\)/gi;
+
+  var module_content = new RegExp([
+    '(?:angular\\.|angular\\.mock\\.|window\\.|)',
+    'module\\((?:\'|")([^\']*)(?:\'|")[^\\[]*?\\)'].join(''), 'gi');
 
   function retrieveDependencies (str) {
     var dependencies = str.split(',');
