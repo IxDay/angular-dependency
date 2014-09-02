@@ -11,8 +11,10 @@ AlreadyDefined.prototype = Error.prototype;
 
 function NotDefined (module) {
   this.name = 'NotDefined';
-  var message = ['The module ', module.name, ' has not been defined'];
-  if (module.contents.length) {
+  var message =
+    ['The module ', module.name || module, ' has not been defined'];
+
+  if (module.contents && module.contents.length) {
     message.splice(2,0, ' used in ', module.contents.join(', '));
   }
   this.message = message.join('');
@@ -90,7 +92,7 @@ AngularModules.prototype = {
           if (_.find(unresolved, {name: dependency.name})) {
             throw new CircularDependency(module, dependency);
           }
-          walk (dependency, resolved, unresolved);
+          walk(dependency, resolved, unresolved);
         }
       });
       resolved.push(module);
@@ -101,10 +103,13 @@ AngularModules.prototype = {
 
     var modules = copyModules.call(this);
     var resolved = [];
-    module = modules[module.name || module];
-    walk(module, resolved, []);
+    var m = modules[module.name || module];
 
-    return flat ? resolved : module;
+    if (!m) {
+      throw new NotDefined(module);
+    }
+    walk(m, resolved, []);
+    return flat ? resolved : m;
   }
 };
 
