@@ -7,7 +7,7 @@ describe('angular-dependency', function () {
   var modules;
 
   function getModules(path) {
-    return angularDependency(path).getAngularModules();
+    return angularDependency(path).angularModules();
   }
 
   describe('modules', function () {

@@ -130,18 +130,7 @@ function AngularModulesFactory () {
     });
   }
 
-  function exceptionDecorator (f) {
-    return function () {
-      try {
-        return f.apply(this, arguments);
-      } catch (e) {
-        _angularModules = new AngularModules();
-        throw e;
-      }
-    };
-  }
-
-  this.processFile = exceptionDecorator(function (content, path) {
+  this.processFile = function (content, path) {
     var results;
 
     content = content.replace(/\s/g, '');
@@ -153,18 +142,16 @@ function AngularModulesFactory () {
     while ((results = module_content.exec(content)) !== null) {
       _angularModules.addModule(results[1], path);
     }
-  });
+  };
 
-  this.getAngularModules = exceptionDecorator(function () {
-    var angularModules = _angularModules;
-    _.each(angularModules.modules, function (module) {
+  this.angularModules = function () {
+    _.each(_angularModules.modules, function (module) {
       if (!module.defined) {
         throw new NotDefined(module);
       }
     });
-    _angularModules = new AngularModules();
-    return angularModules;
-  });
+    return _angularModules;
+  };
 }
 
 module.exports = {

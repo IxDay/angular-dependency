@@ -2,9 +2,6 @@ var fs  = require('fs');
 var _   = require('lodash');
 var lib = require('./lib');
 
-var angularModulesFactory = new lib.AngularModulesFactory();
-
-
 function listFiles (filename, files) {
   var stats = fs.lstatSync(filename);
 
@@ -22,6 +19,7 @@ function listFiles (filename, files) {
 }
 
 function processPath (path) {
+  var angularModulesFactory = new lib.AngularModulesFactory();
   var files = listFiles(path);
   _.map(files, function (path) {
     var content = fs.readFileSync(path).toString();

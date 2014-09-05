@@ -1,6 +1,6 @@
 {
   "name": "angular-dependency",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "retrieve angular modules through your filesystem",
   "main": "index.js",
   "scripts": {
@@ -30,6 +30,8 @@
     "mocha": "^1.21.4"
   },
   "dependencies": {
+    "event-stream": "^3.1.7",
+    "gulp-util": "^3.0.1",
     "lodash": "^2.4.1"
   }
 }
