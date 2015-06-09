@@ -61,7 +61,8 @@ AngularModules.prototype = {
     return module;
   },
 
-  resolve: function (module, flat) {
+  resolve: function (module, flat, exclude) {
+    if (typeof exclude === 'string') { exclude = [exclude]; }
     //copy this.modules in order to not modify it in the resolve function
     function copyModules () {
       var modules = {};
@@ -74,10 +75,17 @@ AngularModules.prototype = {
         };
       });
       _.each(modules, function (module) {
-        module.dependencies =
-          _.map(module.dependencies, function (dependency) {
-            return modules[dependency];
-          });
+        var dependencies = [];
+        _.each(module.dependencies, function (dependency) {
+          if (_.indexOf(exclude, dependency) == -1) {
+            if (modules[dependency]) {
+              dependencies.push(modules[dependency]);
+            } else {
+              throw new NotDefined(dependency);
+            }
+          }
+        });
+        module.dependencies = dependencies;
       });
       return modules;
     }

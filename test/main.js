@@ -165,6 +165,53 @@ describe('angular-dependency', function () {
           modules,
           getModules('test/test_cases/test_case_05').resolve('module1', true));
       });
+
+    it('should be possible to get the dependency tree with an excluded dependency',
+      function () {
+        modules = [{
+          name: 'module2',
+          defined: 'test/test_cases/test_case_05/file_0_1.js',
+          dependencies: [],
+          contents: []
+        }, {
+          name: 'module1',
+          defined: 'test/test_cases/test_case_05/file_0_1.js',
+          dependencies: [{
+            name: 'module2',
+            defined: 'test/test_cases/test_case_05/file_0_1.js',
+            dependencies: [],
+            contents: []
+          }],
+          contents: []
+        }];
+        assert.deepEqual(
+          modules,
+          getModules('test/test_cases/test_case_05').resolve('module1', true, 'module3'));
+      });
+
+    it('should be possible to get the dependency tree with excluded dependencies',
+      function () {
+        modules = [{
+          name: 'module3',
+          defined: 'test/test_cases/test_case_05/file_0_1.js',
+          dependencies: [],
+          contents: []
+        }, {
+          name: 'module1',
+          defined: 'test/test_cases/test_case_05/file_0_1.js',
+          dependencies: [{
+            name: 'module3',
+            defined: 'test/test_cases/test_case_05/file_0_1.js',
+            dependencies: [],
+            contents: []
+          }],
+          contents: []
+        }];
+        assert.deepEqual(
+          modules,
+          getModules('test/test_cases/test_case_05')
+            .resolve('module1', true, ['module2', 'module4']));
+      });
   });
 
   describe('errors', function (){
