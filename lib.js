@@ -61,25 +61,22 @@ AngularModules.prototype = {
     return module;
   },
 
-  resolve: function (module, flat) {
+  resolve: function (module, flat, exclude) {
+    if (typeof exclude === 'string') { exclude = [exclude]; }
     //copy this.modules in order to not modify it in the resolve function
     function copyModules () {
-      var modules = {};
-      _.each(this.modules, function (module) {
-        modules[module.name] = {
-          name         : module.name,
-          defined      : module.defined,
-          dependencies : _.map(module.dependencies),
-          contents     : _.map(module.contents)
-        };
-      });
-      _.each(modules, function (module) {
-        module.dependencies =
-          _.map(module.dependencies, function (dependency) {
+      var modules = _.clone(this.modules, true);
+
+      return _.each(modules, function (module){
+        module.dependencies = _(module.dependencies)
+          .filter(function (dependency) {
+            return _.indexOf(exclude, dependency) == -1
+          })
+          .map(function (dependency) {
             return modules[dependency];
-          });
-      });
-      return modules;
+          })
+          .value();
+        });
     }
 
     /*
