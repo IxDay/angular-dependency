@@ -3,12 +3,12 @@
 [![Build Status](https://travis-ci.org/IxDay/angular-dependency.svg)](https://travis-ci.org/IxDay/angular-dependency)
 
 <table>
-<tr> 
+<tr>
 <td>Package</td><td>angular-dependency</td>
 </tr>
 <tr>
 <td>Description</td>
-<td>Retrieve files needed by angular modules through your 
+<td>Retrieve files needed by angular modules through your
 filesystem</td>
 </tr>
 <tr>
@@ -19,7 +19,7 @@ filesystem</td>
 
 
 ##Usage
-In order to retrieve the angular dependency tree a function is directly 
+In order to retrieve the angular dependency tree a function is directly
 available on the package, here is an example:
 
 ```javascript
@@ -34,11 +34,27 @@ var angularModules = angularDependency('/path/to/scan');
 This object contains all angular references needed to build a dependency tree:
 
 ```javascript
-//retrieve the dependency tree of the module1, can throw a CircularDependency 
+//retrieve the dependency tree of the module1, can throw a CircularDependency
 var dependencyTree = angularModules.resolve('module1');
 
 //retrieve a flat representation of the dependencies of module1
-var dependencyTree = angularModules.resolve('module1', true);
+var flat = true;
+var dependencyTree = angularModules.resolve('module1', flat);
+```
+
+Sometimes, you do not want to retrieve some modules because you already know
+where they belongs, or because they are present by default.
+You can specify this in the resolve last argument which is a string or array
+of modules to exclude
+
+```javascript
+
+var exclude = 'ngResource'; // can also be ['ngResource', 'someOtherModule']
+var dependencyTree = angularModules.resolve('module1', exclude);
+
+// you can still specify if you want a flat representation
+var flat = true;
+var dependencyTree = angularModules.resolve('module1', flat, exclude);
 ```
 
 ##AngularModulesFactory
@@ -56,7 +72,7 @@ var content = fs.readdirSync(path).toString();
 
 /*
  * Process file in order to extract angular modules definition, can throw
- * an AlreadyDefined exception if a module with the same name is defined 
+ * an AlreadyDefined exception if a module with the same name is defined
  * multiple times
  */
 angularModulesFactory.processFile(content, path);
