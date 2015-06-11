@@ -1,6 +1,6 @@
 {
   "name": "angular-dependency",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "retrieve angular modules through your filesystem",
   "main": "index.js",
   "scripts": {
