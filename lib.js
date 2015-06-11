@@ -62,7 +62,7 @@ AngularModules.prototype = {
   },
 
   resolve: function (module, flat, exclude) {
-    if (typeof flat !== boolean) { exclude = flat; }
+    if (typeof flat !== 'boolean') { exclude = flat; }
     if (typeof exclude === 'string') { exclude = [exclude]; }
     //copy this.modules in order to not modify it in the resolve function
     function copyModules () {
