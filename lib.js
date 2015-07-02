@@ -74,6 +74,8 @@ AngularModules.prototype = {
             return _.indexOf(exclude, dependency) == -1
           })
           .map(function (dependency) {
+            var module = modules[dependency];
+            if (!module) throw new NotDefined(dependency);
             return modules[dependency];
           })
           .value();

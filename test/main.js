@@ -260,5 +260,16 @@ describe('angular-dependency', function () {
           errors.NotDefined
         );
     });
+
+    it('should throw an error if a module implementation does not exist',
+      function () {
+        assert.throws(
+          function() {
+            getModules('test/test_cases/test_case_09').resolve('module1');
+          },
+          errors.NotDefined
+        );
+    });
+
   });
 });
