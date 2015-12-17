@@ -133,7 +133,14 @@ function AngularModulesFactory () {
   this.processFile = function (content, path) {
     var results;
 
+    // Remove multi-line comments
+    content = content.replace(/\/\*[\s\S]*?\*\//g, '');
+    // Remove single-line comments
+    content = content.replace(/\/\/.*/, '');
+    // Remove whitespace
     content = content.replace(/\s/g, '');
+    // Remove extraneous array comma
+    content = content.replace(/,\s*?]/g, ']');
 
     while ((results = module_declaration.exec(content)) !== null) {
       _angularModules.addModule(results[1], retrieveDependencies(results[2]), path);
